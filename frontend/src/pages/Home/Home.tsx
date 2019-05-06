@@ -5,7 +5,7 @@ import Style from './Home.style';
 class Home extends React.Component {
   render(): React.ReactNode {
     const pokemon = 'Carapuce';
-    const num = 7;
+    const pokemonId = 7;
 
     return (
       <Style.Intro>
@@ -15,13 +15,15 @@ class Home extends React.Component {
           pokemons !
         </div>
         <div>Commence par créer ton premier pokemon: {pokemon}</div>
-        <br />
+
         <div>
           <div>{pokemon}</div>
-          <div>No {num}</div>
+          <div>No {pokemonId}</div>
           <img
-            src="https://raw.githubuser.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
-            alt="Carapuce_img"
+            src={
+              'https://raw.githubuser.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png'
+            }
+            alt={'${pokemon} image missing'}
           />
         </div>
       </Style.Intro>
