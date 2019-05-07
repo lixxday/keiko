@@ -21,7 +21,7 @@ class Home extends React.Component {
           <div>No {pokemonId}</div>
           <img
             src={`https://raw.githubuser.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
-            alt={`${pokemon} image missing`}
+            alt={`Image pour ${pokemon}`}
           />
         </div>
       </Style.Intro>
