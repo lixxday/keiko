@@ -32,21 +32,16 @@ class Home extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const salameche = this.state.pokemons[3];
+    const rawPokemonList = this.state.pokemons;
+    const myPokemonList = rawPokemonList.map(pokemon => {
+      return <Pokemon key={pokemon.id} id={pokemon.id} name={pokemon.name} />;
+    });
 
-    // Probablement pas le meilleur moyen d'attendre le chargement du component
-    if (salameche === undefined) {
+    if (myPokemonList === undefined) {
       return <Style.Intro />;
     }
 
-    return (
-      <Style.Intro>
-        <Pokemon id={salameche.id} name={salameche.name} />
-        <Pokemon id={7} name="Carapuce" />
-        <Pokemon id={8} name="Carabaffe" />
-        <Pokemon id={9} name="Tortank" />
-      </Style.Intro>
-    );
+    return <Style.Intro>{myPokemonList}</Style.Intro>;
   }
 }
 
