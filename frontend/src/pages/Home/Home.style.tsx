@@ -4,8 +4,8 @@ export default {
   Intro: styled.div`
     font-size: 20px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    flex-direction: column;
     padding: 10px;
   `,
 };
