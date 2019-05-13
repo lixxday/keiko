@@ -8,6 +8,7 @@ import { Route } from 'react-router';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { createGlobalStyle } from 'styled-components';
 
 import Root from './components/Root';
 import Routes from './routes';
@@ -25,6 +26,13 @@ const RootComponentWithRoutes: React.FunctionComponent = () => (
   </Root>
 );
 
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Pokemon';
+    src: url('./pokemonGB.ttf') format('truetype');
+  }
+`;
+
 const App: React.FunctionComponent<Props> = ({ history, persistor, store }) => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
@@ -38,3 +46,4 @@ const App: React.FunctionComponent<Props> = ({ history, persistor, store }) => (
 );
 
 export default App;
+export { GlobalStyle };
