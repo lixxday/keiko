@@ -9,6 +9,8 @@ interface State {
   pokemons: {
     id: number;
     name: string;
+    height: number;
+    weight: number;
   }[];
 }
 
@@ -32,16 +34,26 @@ class Home extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const rawPokemonList = this.state.pokemons;
-    const myPokemonList = rawPokemonList.map(pokemon => {
-      return <Pokemon key={pokemon.id} id={pokemon.id} name={pokemon.name} />;
-    });
-
-    if (myPokemonList === undefined) {
+    if (this.state.pokemons === []) {
       return <Style.Intro />;
     }
 
-    return <Style.Intro>{myPokemonList}</Style.Intro>;
+    return (
+      <Style.Intro>
+        <h1 style={{ width: '100%'; text-align: center }}>Pokedex</h1>
+        {this.state.pokemons.map(pokemon => {
+          return (
+            <Pokemon
+              key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.name}
+              height={pokemon.height}
+              weight={pokemon.weight}
+            />
+          );
+        })}
+      </Style.Intro>
+    );
   }
 }
 
