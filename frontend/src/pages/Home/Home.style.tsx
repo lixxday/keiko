@@ -6,6 +6,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     padding: 10px;
   `,
   Title: styled.h1`
