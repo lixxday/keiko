@@ -17,7 +17,7 @@ class Pokemon extends React.Component<Props> {
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             this.props.id
           }.png`}
-          alt={`Image pour ${this.props.name} non disponible`}
+          alt={`Image pour ${this.props.name}`}
         />
         <div>Id: {this.props.id}</div>
         <div>Height: {this.props.height} cm</div>

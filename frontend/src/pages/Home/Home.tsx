@@ -13,6 +13,7 @@ interface State {
     weight: number;
   }[];
   loading: boolean;
+  errorMessage: string;
 }
 
 class Home extends React.Component<Props, State> {
@@ -21,6 +22,7 @@ class Home extends React.Component<Props, State> {
     this.state = {
       pokemons: [],
       loading: true,
+      errorMessage: '',
     };
   }
 
@@ -33,7 +35,11 @@ class Home extends React.Component<Props, State> {
         });
         return response.body;
       })
-      .catch(err => console.log(err.message));
+      .catch(err => {
+        this.setState({
+          errorMessage: err.message,
+        });
+      });
   }
 
   render(): React.ReactNode {
@@ -62,6 +68,9 @@ class Home extends React.Component<Props, State> {
               />
             );
           })}
+          {this.state.errorMessage !== ''
+            ? 'An error occurder while communicating with the PokeApi: ' + this.state.errorMessage
+            : ''}
         </Style.Intro>
       </Style.Intro>
     );
