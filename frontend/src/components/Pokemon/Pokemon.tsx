@@ -4,6 +4,8 @@ import Style from './Pokemon.style';
 interface Props {
   name: string;
   id: number;
+  height: number;
+  weight: number;
 }
 
 class Pokemon extends React.Component<Props> {
@@ -15,9 +17,11 @@ class Pokemon extends React.Component<Props> {
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             this.props.id
           }.png`}
-          alt={`Image pour ${this.props.name} non disponible`}
+          alt={`Image pour ${this.props.name}`}
         />
-        <div>{this.props.id}</div>
+        <div>Id: {this.props.id}</div>
+        <div>Height: {this.props.height} cm</div>
+        <div>Weight: {this.props.weight} kg</div>
       </Style.Pokemon>
     );
   }
