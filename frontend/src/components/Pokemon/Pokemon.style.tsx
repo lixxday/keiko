@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pokemon';
     src: 'PokemonGB.ttf';
