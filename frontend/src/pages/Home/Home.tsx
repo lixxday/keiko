@@ -12,6 +12,7 @@ interface State {
     height: number;
     weight: number;
   }[];
+  loading: boolean;
 }
 
 class Home extends React.Component<Props, State> {
@@ -19,6 +20,7 @@ class Home extends React.Component<Props, State> {
     super(props);
     this.state = {
       pokemons: [],
+      loading: true,
     };
   }
 
@@ -27,6 +29,7 @@ class Home extends React.Component<Props, State> {
       .then(response => {
         this.setState({
           pokemons: response.body,
+          loading: false,
         });
         return response.body;
       })
@@ -42,6 +45,12 @@ class Home extends React.Component<Props, State> {
       <Style.Intro>
         <Style.Title>Pokedex</Style.Title>
         <Style.Intro>
+          {this.state.loading && (
+            <img
+              src={`https://trello-attachments.s3.amazonaws.com/5cade0c8d91f7b592796bff6/5cade0c8d91f7b592796c012/x/57f45500600db5a4c399a7b1dc034ef5/loader.svg`}
+              alt={'Loading'}
+            />
+          )}
           {this.state.pokemons.map(pokemon => {
             return (
               <Pokemon
