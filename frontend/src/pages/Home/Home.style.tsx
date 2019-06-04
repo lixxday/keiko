@@ -8,4 +8,8 @@ export default {
     flex-direction: column;
     padding: 10px;
   `,
+  Title: styled.h1`
+    width: '100%';
+    text-align: 'center';
+  `,
 };
