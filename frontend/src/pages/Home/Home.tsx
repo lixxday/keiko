@@ -40,18 +40,20 @@ class Home extends React.Component<Props, State> {
 
     return (
       <Style.Intro>
-        <h1 style={{ width: '100%', textAlign: 'center' }}>Pokedex</h1>
-        {this.state.pokemons.map(pokemon => {
-          return (
-            <Pokemon
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              height={pokemon.height}
-              weight={pokemon.weight}
-            />
-          );
-        })}
+        <Style.Title>Pokedex</Style.Title>
+        <Style.Intro>
+          {this.state.pokemons.map(pokemon => {
+            return (
+              <Pokemon
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                height={pokemon.height}
+                weight={pokemon.weight}
+              />
+            );
+          })}
+        </Style.Intro>
       </Style.Intro>
     );
   }
