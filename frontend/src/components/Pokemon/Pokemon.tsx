@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { createGlobalStyle } from 'styled-components';
 import Style from './Pokemon.style';
 
 interface Props {
@@ -9,18 +8,10 @@ interface Props {
   weight: number;
 }
 
-const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Pokemon';
-    src: url('./pokemonGB.ttf') format('truetype');
-  }
-`;
-
 class Pokemon extends React.Component<Props> {
   render(): React.ReactNode {
     return (
       <Style.Pokemon>
-        <GlobalStyle />
         <div>{this.props.name}</div>
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
