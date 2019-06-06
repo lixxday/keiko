@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Pokemon';
-    src: 'PokemonGB.ttf';
-  }
-`;
 export default {
   Pokemon: styled.div`
     display: inline-block;
