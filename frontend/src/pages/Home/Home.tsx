@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
-import { GlobalStyle } from '../../App';
 import Style from './Home.style';
 
 interface Props {}
@@ -41,7 +40,6 @@ class Home extends React.Component<Props, State> {
 
     return (
       <Style.Intro>
-        <GlobalStyle />
         <Style.Title>Pokedex</Style.Title>
         <Style.Intro>
           {this.state.pokemons.map(pokemon => {

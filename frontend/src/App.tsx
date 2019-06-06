@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FunctionComponent<Props> = ({ history, persistor, store }) => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
+      <GlobalStyle />
       <PersistGate loading={null} persistor={persistor}>
         <ConnectedRouter history={history}>
           <Route path="/" component={RootComponentWithRoutes} />
@@ -46,4 +47,3 @@ const App: React.FunctionComponent<Props> = ({ history, persistor, store }) => (
 );
 
 export default App;
-export { GlobalStyle };
