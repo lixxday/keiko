@@ -50,7 +50,7 @@ class Home extends React.Component<Props, State> {
     return (
       <Style.Intro>
         <Style.Title>Pokedex</Style.Title>
-        <Style.Intro>
+        <Style.Pokedex>
           {this.state.loading && (
             <img
               src={`https://trello-attachments.s3.amazonaws.com/5cade0c8d91f7b592796bff6/5cade0c8d91f7b592796c012/x/57f45500600db5a4c399a7b1dc034ef5/loader.svg`}
@@ -71,7 +71,7 @@ class Home extends React.Component<Props, State> {
           {this.state.errorMessage !== ''
             ? 'An error occurder while communicating with the PokeApi: ' + this.state.errorMessage
             : ''}
-        </Style.Intro>
+        </Style.Pokedex>
       </Style.Intro>
     );
   }
