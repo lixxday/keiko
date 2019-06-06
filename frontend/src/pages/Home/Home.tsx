@@ -28,9 +28,8 @@ class Home extends React.Component<Props, State> {
   }
 
   async componentDidMount() {
-    let pokemonList;
     try {
-      pokemonList = await makeGetRequest('/pokemon');
+      const pokemonList = await makeGetRequest('/pokemon');
       this.setState({
         pokemons: pokemonList.body,
         loading: false,
