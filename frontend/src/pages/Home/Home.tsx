@@ -38,6 +38,7 @@ class Home extends React.Component<Props, State> {
       .catch(err => {
         this.setState({
           errorMessage: err.message,
+          loading: false,
         });
       });
   }
@@ -50,7 +51,7 @@ class Home extends React.Component<Props, State> {
           {this.state.loading && (
             <img
               src={`https://trello-attachments.s3.amazonaws.com/5cade0c8d91f7b592796bff6/5cade0c8d91f7b592796c012/x/57f45500600db5a4c399a7b1dc034ef5/loader.svg`}
-              alt={'Loading'}
+              alt={'Loading..'}
             />
           )}
           {this.state.pokemons.map(pokemon => {
