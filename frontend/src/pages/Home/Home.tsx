@@ -43,10 +43,6 @@ class Home extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    if (this.state.pokemons === []) {
-      return <Style.Intro />;
-    }
-
     return (
       <Style.Intro>
         <Style.Title>Pokedex</Style.Title>
