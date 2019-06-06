@@ -27,21 +27,20 @@ class Home extends React.Component<Props, State> {
     };
   }
 
-  componentDidMount() {
-    const pokemonList = makeGetRequest('/pokemon')
-      .then(response => {
-        this.setState({
-          pokemons: response.body,
-          loading: false,
-        });
-        return response.body;
-      })
-      .catch(err => {
-        this.setState({
-          errorMessage: err.message,
-          loading: false,
-        });
+  async componentDidMount() {
+    let pokemonList;
+    try {
+      pokemonList = await makeGetRequest('/pokemon');
+      this.setState({
+        pokemons: pokemonList.body,
+        loading: false,
       });
+    } catch (error) {
+      this.setState({
+        errorMessage: error.message,
+        loading: false,
+      });
+    }
   }
 
   render(): React.ReactNode {
