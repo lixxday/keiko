@@ -19,9 +19,9 @@ class Pokemon extends React.Component<Props> {
           }.png`}
           alt={`Image pour ${this.props.name}`}
         />
-        <div>Id: {this.props.id}</div>
-        <div>Height: {this.props.height} cm</div>
-        <div>Weight: {this.props.weight} kg</div>
+        <div>Id:{this.props.id}</div>
+        <div>Weight:{this.props.weight / 10} kg</div>
+        <div>Height:{this.props.height * 10} cm</div>
       </Style.Pokemon>
     );
   }

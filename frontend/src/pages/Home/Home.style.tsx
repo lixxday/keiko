@@ -13,6 +13,7 @@ export default {
   Title: styled.h1`
     width: '100%';
     text-align: 'center';
+    font-family: 'Pokemon';
   `,
   Pokedex: styled.div`
     display: flex;
