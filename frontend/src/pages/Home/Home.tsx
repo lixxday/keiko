@@ -3,6 +3,7 @@ import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 import Style from './Home.style';
+import loaderImg from '../../loader.svg';
 
 interface Props {}
 interface State {
@@ -48,12 +49,7 @@ class Home extends React.Component<Props, State> {
       <Style.Intro>
         <Style.Title>Pokedex</Style.Title>
         <Style.Pokedex>
-          {this.state.loading && (
-            <img
-              src={`https://trello-attachments.s3.amazonaws.com/5cade0c8d91f7b592796bff6/5cade0c8d91f7b592796c012/x/57f45500600db5a4c399a7b1dc034ef5/loader.svg`}
-              alt={'Loading..'}
-            />
-          )}
+          {this.state.loading && <img src={loaderImg} alt={'Loading...'} />}
           {this.state.pokemons.map(pokemon => {
             return (
               <Pokemon
