@@ -18,7 +18,7 @@ export default {
     font-size: 20px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     padding: 10px;
   `,

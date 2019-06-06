@@ -15,7 +15,7 @@ const Pokemon = (props: Props) => {
   return (
     <Style.Pokemon>
       <div>{props.name}</div>
-      <img src={rotateImg} onClick={() => setRotate(!rotate)} />
+      <Style.RotateImg src={rotateImg} onClick={() => setRotate(!rotate)} />
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
           rotate ? `back/` + props.id : props.id
