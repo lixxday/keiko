@@ -2,6 +2,6 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-pokemon_api:
-  path: /pokemon
-  controller: App\Controller\PokemonController::helloWorld
+#pokemon_api:
+#  path: /pokemon
+#  controller: App\Controller\PokemonController::helloWorld
