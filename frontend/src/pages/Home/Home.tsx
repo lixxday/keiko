@@ -4,68 +4,68 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 import Style from './Home.style';
 import loaderImg from '../../loader.svg';
+import { useState, useEffect } from 'react';
 
-interface Props {}
 interface State {
-  pokemons: {
+  pokemons: Array<{
     id: number;
     name: string;
     height: number;
     weight: number;
-  }[];
+  }>;
   loading: boolean;
   errorMessage: string;
 }
 
-class Home extends React.Component<Props, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      pokemons: [],
-      loading: true,
-      errorMessage: '',
-    };
+const Home = () => {
+  const [pokemons, setPokemons] = useState(
+    new Array<{
+      id: number;
+      name: string;
+      height: number;
+      weight: number;
+    }>(),
+  );
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  async function populatePokedex() {
+    const pokemonList = await makeGetRequest('/pokemon');
+    setPokemons(pokemonList.body);
+    setLoading(false);
   }
 
-  async componentDidMount() {
+  useEffect(() => {
     try {
-      const pokemonList = await makeGetRequest('/pokemon');
-      this.setState({
-        pokemons: pokemonList.body,
-        loading: false,
-      });
+      populatePokedex();
     } catch (error) {
-      this.setState({
-        errorMessage: error.message,
-        loading: false,
-      });
+      setErrorMessage(error.message);
+      setLoading(false);
     }
-  }
+  });
 
-  render(): React.ReactNode {
-    return (
-      <Style.Intro>
-        <Style.Title>Pokedex</Style.Title>
-        <Style.Pokedex>
-          {this.state.loading && <img src={loaderImg} alt={'Loading...'} />}
-          {this.state.pokemons.map(pokemon => {
-            return (
-              <Pokemon
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name}
-                weight={pokemon.weight}
-                height={pokemon.height}
-              />
-            );
-          })}
-          {this.state.errorMessage !== ''
-            ? 'An error occurder while communicating with the PokeApi: ' + this.state.errorMessage
-            : ''}
-        </Style.Pokedex>
-      </Style.Intro>
-    );
-  }
-}
+  return (
+    <Style.Intro>
+      <Style.Title>Pokedex</Style.Title>
+      <Style.Pokedex>
+        {loading && <img src={loaderImg} alt={'Loading...'} />}
+        {pokemons.map(pokemon => {
+          return (
+            <Pokemon
+              key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.name}
+              weight={pokemon.weight}
+              height={pokemon.height}
+            />
+          );
+        })}
+        {errorMessage !== ''
+          ? 'An error occurder while communicating with the PokeApi: ' + errorMessage
+          : ''}
+      </Style.Pokedex>
+    </Style.Intro>
+  );
+};
 
 export default Home;
