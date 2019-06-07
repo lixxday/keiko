@@ -4,4 +4,4 @@
 
 #pokemon_api:
 #  path: /pokemon
-#  controller: App\Controller\PokemonController::helloWorld
+#  controller: App\Controller\PokemonController::pokemon
