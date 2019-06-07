@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+pokemon_api:
+  path: /pokemon
+  controller: ..\..\Controller\PokemonController::string
