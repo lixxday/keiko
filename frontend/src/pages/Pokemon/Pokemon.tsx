@@ -14,8 +14,8 @@ const Pokemon = (props: any) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
-  console.log(props);
-  const path = props.location.pathname;
+  console.log(props.path);
+  const path = props.path;
 
   async function getPokemonInfos() {
     const pokemonInfos = await makeGetRequest(path);

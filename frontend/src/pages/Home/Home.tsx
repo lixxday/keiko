@@ -17,7 +17,7 @@ interface State {
   errorMessage: string;
 }
 
-const Home = () => {
+const Home = (props: any) => {
   const [pokemons, setPokemons] = useState(
     new Array<{
       id: number;
