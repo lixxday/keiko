@@ -4,50 +4,62 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Pokemon;
+use App\Service\PokemonService;
 
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 class PokemonController extends AbstractController
 {
+    private $normalizer;
+    private $serializer;
+    private $validator;
+    private $pokemonService;
+
+    public function __construct(NormalizerInterface $normalizer, SerializerInterface $serializer, ValidatorInterface $validator, PokemonService $pokemonService)
+    {
+        $this->normalizer = $normalizer;
+        $this->serializer = $serializer;
+        $this->validator  = $validator;
+        $this->pokemonService  = $pokemonService;
+    }
+
     /**
      * @Route("/api/pokemon/", name="pokemon_list", methods={"GET"})
-     *
-     * @param NormalizerInterface $normalizer
-     *
      * @return JsonResponse
+     * @throws ExceptionInterface
      */
-    public function pokemonList(NormalizerInterface $normalizer)
+    public function pokemonList(): JsonResponse
     {
         $pokemonList = $this->getDoctrine()
             ->getRepository(Pokemon::class)
             ->findAll();
 
-        $response = $normalizer->normalize($pokemonList, 'json');
+        $response = $this->normalizer->normalize($pokemonList, 'json');
 
         return new JsonResponse( $response );
     }
 
     /**
      * @Route("/api/pokemon/{id}", name="pokemon", methods={"GET"})
-     *
-     * @param NormalizerInterface $normalizer
      * @param $id
-     *
      * @return JsonResponse
+     * @throws ExceptionInterface
      */
-    public function pokemon(NormalizerInterface $normalizer, $id)
+    public function pokemon($id): JsonResponse
     {
         $pokemon = $this->getDoctrine()
             ->getRepository(Pokemon::class)
             ->find($id);
 
-        $response = $normalizer->normalize($pokemon, 'json');
+        $response = $this -> normalizer -> normalize($pokemon, 'json');
 
         return new JsonResponse( $response );
     }
@@ -55,24 +67,21 @@ class PokemonController extends AbstractController
 
     /**
      * @Route("/api/pokemon", name="create", methods={"POST"})
-     *
      * @param Request $request
-     * @param SerializerInterface $serializer
-     *
-     * @return Response
+     * @return JsonResponse
+     * @throws ExceptionInterface
      */
-    public function create(Request $request, SerializerInterface $serializer)
+    public function create(Request $request): JsonResponse
     {
+
+        /* @var Pokemon $pokemon */
+        $pokemon = $this->serializer->deserialize($request -> getContent(), Pokemon::class, 'json');
         $entityManager = $this->getDoctrine()->getManager();
 
-        $pokemon = new Pokemon();
-        $serializer -> deserialize($request -> getContent(), Pokemon::class, 'json', ['object_to_populate' => $pokemon]);
+        $this->pokemonService->create($entityManager, $pokemon);
 
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($pokemon);
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
+        $response = $this->normalizer->normalize($pokemon, 'json');
 
-        return new Response('Saved new pokemon with id '.$pokemon -> getId());
+        return new JsonResponse($response);
     }
 }
