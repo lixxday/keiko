@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,6 +35,16 @@ class Pokemon
      * @ORM\Column(type="integer")
      */
     private $height;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Ability", mappedBy="pokemon")
+     */
+    private $abilities;
+
+    public function __construct()
+    {
+        $this->abilities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,5 +97,33 @@ class Pokemon
     public function setWeight($weight): void
     {
         $this->weight = $weight;
+    }
+
+    /**
+     * @return Collection|Ability[]
+     */
+    public function getAbilities(): Collection
+    {
+        return $this->abilities;
+    }
+
+    public function addAbility(Ability $ability): self
+    {
+        if (!$this->abilities->contains($ability)) {
+            $this->abilities[] = $ability;
+            $ability->addPokemon($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbility(Ability $ability): self
+    {
+        if ($this->abilities->contains($ability)) {
+            $this->abilities->removeElement($ability);
+            $ability->removePokemon($this);
+        }
+
+        return $this;
     }
 }
