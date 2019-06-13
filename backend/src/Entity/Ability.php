@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="ability")
  * @ORM\Entity()
  */
-class Ability {
+class Ability
+{
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
