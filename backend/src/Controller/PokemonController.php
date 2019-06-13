@@ -42,7 +42,11 @@ class PokemonController extends AbstractController
             ->getRepository(Pokemon::class)
             ->findAll();
 
-        $response = $this->normalizer->normalize($pokemonList, 'json');
+        $response = $this->normalizer->normalize($pokemonList, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
 
         return new JsonResponse( $response );
     }
@@ -59,7 +63,11 @@ class PokemonController extends AbstractController
             ->getRepository(Pokemon::class)
             ->find($id);
 
-        $response = $this -> normalizer -> normalize($pokemon, 'json');
+        $response = $this -> normalizer -> normalize($pokemon, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
 
         return new JsonResponse( $response );
     }
@@ -80,7 +88,11 @@ class PokemonController extends AbstractController
 
         $this->pokemonService->create($entityManager, $pokemon);
 
-        $response = $this->normalizer->normalize($pokemon, 'json');
+        $response = $this->normalizer->normalize($pokemon, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
 
         return new JsonResponse($response);
     }
