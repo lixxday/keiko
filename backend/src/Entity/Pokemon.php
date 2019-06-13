@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
+ * @ApiResource(normalizationContext={"groups"={"pokemon"}})
  * @ORM\Table(name="pokemon")
  * @ORM\Entity()
  */
@@ -24,23 +27,27 @@ class Pokemon
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Groups({"pokemon"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Groups({"pokemon"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Groups({"pokemon"})
      */
     private $height;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Ability", mappedBy="pokemon")
+     * @Groups({"pokemon"})
      */
     private $abilities;
 

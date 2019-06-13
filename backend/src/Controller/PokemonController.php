@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Pokemon;
 use App\Service\PokemonService;
@@ -42,11 +41,7 @@ class PokemonController extends AbstractController
             ->getRepository(Pokemon::class)
             ->findAll();
 
-        $response = $this->normalizer->normalize($pokemonList, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response = $this->normalizer->normalize($pokemonList, 'json');
 
         return new JsonResponse( $response );
     }
@@ -63,11 +58,7 @@ class PokemonController extends AbstractController
             ->getRepository(Pokemon::class)
             ->find($id);
 
-        $response = $this -> normalizer -> normalize($pokemon, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response = $this -> normalizer -> normalize($pokemon, 'json');
 
         return new JsonResponse( $response );
     }
@@ -88,11 +79,7 @@ class PokemonController extends AbstractController
 
         $this->pokemonService->create($entityManager, $pokemon);
 
-        $response = $this->normalizer->normalize($pokemon, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response = $this->normalizer->normalize($pokemon, 'json');
 
         return new JsonResponse($response);
     }
