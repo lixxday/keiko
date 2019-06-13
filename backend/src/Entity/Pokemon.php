@@ -4,9 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource
  * @ORM\Table(name="pokemon")
  * @ORM\Entity()
  */
@@ -21,16 +21,19 @@ class Pokemon
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $height;
 
