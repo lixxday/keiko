@@ -28,4 +28,4 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Listener\PokemonListener:
         tags:
-          - { name: doctrine.event_listener, event: postPersist}
+            - { name: doctrine.entity_listener, event: prePersist }

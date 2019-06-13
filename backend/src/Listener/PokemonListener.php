@@ -1,36 +1,59 @@
 <?php
 
-namespace App\EventListener;
+namespace App\Listener;
 
 use App\Entity\Ability;
 use App\Entity\Pokemon;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Exception;
 
 
 class PokemonListener
 {
+    private $needsFlush = false;
     /**
+     * @ORM\PrePersist()
+     *
+     * @param Pokemon $pokemon
      * @param LifecycleEventArgs $args
      * @throws Exception
      */
-    public function postPersist(LifecycleEventArgs $args)
+    public function prePersist(Pokemon $pokemon, LifecycleEventArgs $args)
     {
-        $entity = $args->getObject();
+        //$entity = $args->getObject();
 
-        if (!$entity instanceof Pokemon) {
+        if (!$pokemon instanceof Pokemon) {
             return;
         }
 
         $entityManager = $args->getObjectManager();
 
-        if ($entity->getAbilities() == []) {
+        if ($pokemon->getAbilities() == []) {
             $abilities = $entityManager
                 ->getRepository(Ability::class)
                 ->findAll();
             /* @var Ability $randomAbility */
             $randomAbility = $abilities[random_int(0, sizeof($abilities))];
-            $entity->addAbility($randomAbility);
+            $ability = new Ability();
+            $ability->setName("blaze");
+            $pokemon->addAbility($ability);
+
+            $entityManager->persist($pokemon);
+            $this->needsFlush = true;
+        }
+    }
+
+    /**
+     * @ORM\PostLoad()
+     * @param Pokemon $pokemon
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function PostLoad(Pokemon $pokemon, LifecycleEventArgs $eventArgs)
+    {
+        if ($this->needsFlush) {
+            $this->needsFlush = false;
+            $eventArgs->getObjectManager()->flush();
         }
     }
 }

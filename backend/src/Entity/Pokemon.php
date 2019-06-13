@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(normalizationContext={"groups"={"pokemon"}})
  * @ORM\Table(name="pokemon")
  * @ORM\Entity()
+ * @ORM\EntityListeners({"App\Listener\PokemonListener"})
  */
 class Pokemon
 {
