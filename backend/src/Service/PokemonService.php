@@ -18,7 +18,7 @@ class PokemonService
         $this->validator = $validator;
     }
 
-    public function create(ObjectManager $entityManager, Pokemon $pokemon)
+    public function create(Pokemon $pokemon, ObjectManager $entityManager)
     {
         $errors = $this->validator->validate($pokemon);
         if (count($errors) > 0) {
