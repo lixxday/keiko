@@ -24,6 +24,7 @@
         "fzaninotto/faker": "1.8.0",
         "hautelook/alice-bundle": "dev-master",
         "phpstan/phpstan": "0.10.7",
+        "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "1.0.3",
         "symfony/test-pack": "1.0.4"
     },
