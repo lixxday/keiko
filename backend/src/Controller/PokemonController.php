@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Pokemon;
 use App\Service\PokemonService;
@@ -73,13 +72,11 @@ class PokemonController extends AbstractController
      */
     public function create(Request $request): JsonResponse
     {
-
         /* @var Pokemon $pokemon */
         $pokemon = $this->serializer->deserialize($request -> getContent(), Pokemon::class, 'json');
         $entityManager = $this->getDoctrine()->getManager();
 
-        $this->pokemonService->create($entityManager, $pokemon);
-
+        $this->pokemonService->create($pokemon, $entityManager);
         $response = $this->normalizer->normalize($pokemon, 'json');
 
         return new JsonResponse($response);
